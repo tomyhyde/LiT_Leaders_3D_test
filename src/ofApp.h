@@ -19,17 +19,18 @@ public:
     
     }; //constructor　書かないと動かない　初期化関数
     ~Polygon3d(){}; //destructor
+    
     void draw(){
         if (mPolygonType == 0){
             ofBoxPrimitive boxPrimitive;  //BoxPrimitiveというクラス　すでに用意されている
             boxPrimitive.setPosition(mPolygonPosition);
             boxPrimitive.set(mPolygonSize);
-            boxPrimitive.drawWireframe();
+            boxPrimitive.draw();
         } else if (mPolygonType == 1){
             ofSpherePrimitive sphereprimitive;
             sphereprimitive.setPosition(mPolygonPosition);
             sphereprimitive.setRadius(mPolygonSize);
-            sphereprimitive.drawWireframe();
+            sphereprimitive.draw();
         }
     }
 };
@@ -56,6 +57,7 @@ class ofApp : public ofBaseApp{
     ofSpherePrimitive sphere;
     ofEasyCam easycam;
     ofCamera camera;
+    ofLight light;
     vector<Polygon3d *> polygons; //配列と同じように使える　番号のついた靴箱のようなもの
     
     

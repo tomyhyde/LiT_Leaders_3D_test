@@ -1,15 +1,16 @@
 #include "ofApp.h"
-#define NUM_OF_POLYGONS 200
+#define NUM_OF_POLYGONS 200 //ここに書いた数字が全部に適用されます
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+    ofSetFrameRate(60);
     ofEnableDepthTest();//実際の描画上での距離感（深度）を実装
+    ofToggleFullscreen();
     for (int i = 0; i< NUM_OF_POLYGONS; i++){
         polygons.push_back(new Polygon3d); //push_back = 一番最後に入れるという意味
         
     }
     for (int i = 0; i< NUM_OF_POLYGONS; i++){
-        cout << i <<";"<<
+        cout << i <<";"<<//";"をウィンドウ内に書いて、数値をみやすく
                 polygons.at(i)->mPolygonPosition <<endl;
         //靴箱の１−２００番にきちんと生成されているかをcout<<endlで確認
         //at polygonの計算式の中の(i)の数値を確認
@@ -31,15 +32,15 @@ void ofApp::update(){
     
     
     //半径１の円において
-    //(x,y)=(cosθ,sinθ)
+    //(x,y)=(cosθ,sinθ)ということは、θの値を増やしていけば一周する
     //1秒で1000回回ると早すぎるので、/200(整数)することで速度をコントロール
     //一定の整数で割り続けると少数が出てくるので、(double)をつけることで少数を処理できるようにする
     //そうすると滑らかにカメラを回せる
     //今の状態では半径１なので、200*をすることで円の半径を200にする
     
-        camera.setPosition(3000*cos((double)ofGetElapsedTimeMillis()/2500),
+        camera.setPosition(3000*cos((double)ofGetElapsedTimeMillis()/1500),
                            0,
-                           3000*sin((double)ofGetElapsedTimeMillis()/2500));
+                           3000*sin((double)ofGetElapsedTimeMillis()/1500));
         camera.lookAt(ofVec3f(0,0,0));
     
 
@@ -51,6 +52,7 @@ void ofApp::draw(){
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2,0);
 
     
+    light.enable();
     camera.begin();
     
 //    box.setPosition(0, 0, 0);
@@ -73,6 +75,8 @@ void ofApp::draw(){
     
     
     camera.end();
+    light.disable();
+    
     
     
     
